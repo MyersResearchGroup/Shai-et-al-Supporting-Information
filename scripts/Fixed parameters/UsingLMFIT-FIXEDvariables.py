@@ -48,8 +48,16 @@ def residual(paras, t, data):
 
 # %% Importing measured (or training) data
 p = Path('.')
-df = pd.read_excel (p.absolute() / 'TestingOFFON-FurtherCropped.xlsx')
-#df = pd.read_excel (r'C:\Users\elros\Dropbox\SYNTHETIC BIOLOGY\SD2 Project\Parameterizing Gates\Delay Circuit\TestingOFFON-FurtherCropped.xlsx')        
+
+## Here, choose uncomment option 1 for LuxR-characterized parameterization or 2 for AraC-characterized parameterization
+#### OPTION 1 LuxR gate characterization####
+df = pd.read_excel (p.absolute() / 'experimental_results' / 'Timer (Modified)_20210808_125346 ON LuxR 2 plasmids - Cropped.xlsx')
+gate_name = 'LuxR'
+
+#### OPTION 2 AraC gate characterization ####
+#df = pd.read_excel (p.absolute() / 'experimental_results' / 'shai timer_20210811_123450_ON AraC 2 plasmids - Cropped.xlsx')
+#gate_name = 'AraC'      
+
 #### inducer concentration column
 inputs = df.Time
 inputs = inputs.tolist()
@@ -61,71 +69,79 @@ for column in df.columns[2:]:
     names.append(column.split())
     outputs.append(list(df[column]))
 
-j = 5
+fitted_results = pd.DataFrame(index=['TauONx','TauONy','TauOFFy','x_ss'])
 
-print(names[j])
-y_measured = outputs[j]
-inputs = np.array(range(1,len(y_measured)+1))
+for k in range(len(outputs)):
 
-# initial conditions
-x10 = 54.
-x20 = 54.
-y0 = [x10, x20]
+    print(names[k])
+    y_measured = outputs[k]
+    inputs = np.array(range(1,len(y_measured)+1))
 
-x2_measured = np.array(y_measured)
-x2_measured = x2_measured[~np.isnan(x2_measured)]
-t_measured = np.array(range(1,len(x2_measured)+1))
+    # initial conditions
+    x10 = 54.
+    x20 = 54.
+    y0 = [x10, x20]
 
-plt.figure()
-plt.scatter(t_measured, x2_measured, marker='o', color='b', label='measured data', s=75)
+    x2_measured = np.array(y_measured)
+    x2_measured = x2_measured[~np.isnan(x2_measured)]
+    t_measured = np.array(range(1,len(x2_measured)+1))
 
-# %% Set parameters including bounds; you can also fix parameters (use vary=False)
-problem = {
-'num_vars':2,
-'names': ['x10','x20'],
-'bounds':[[0.0, 100.], [0.0, 100.]],
-'groups':['group1','group2']
-}
-n_search = 25
-param_values = latin.sample(problem, n_search, seed=456767)
+    plt.figure()
+    plt.scatter(t_measured, x2_measured, marker='o', color='b', label='measured data', s=75)
 
-df_params = pd.DataFrame()
+    # %% Set parameters including bounds; you can also fix parameters (use vary=False)
+    problem = {
+    'num_vars':2,
+    'names': ['x10','x20'],
+    'bounds':[[0.0, 100.], [0.0, 100.]],
+    'groups':['group1','group2']
+    }
+    n_search = 25
+    param_values = latin.sample(problem, n_search, seed=456767)
 
-for i in range(len(problem["names"])):
-    df_params[problem["names"][i]] = param_values[:,i]
+    df_params = pd.DataFrame()
 
-reduced_chi = np.inf
+    for i in range(len(problem["names"])):
+        df_params[problem["names"][i]] = param_values[:,i]
 
-for j in range(n_search):
-    # set parameters incluing bounds
-    params = Parameters()
-    params.add('x10', value=df_params["x10"][j], min=0.0001, max=2000.)
-    params.add('x20', value=df_params["x20"][j], min=0.0001, max=2000.)
-    params.add('TauONx', value=0.100830362, vary=False)
-    params.add('x_SS', value=1000, vary=False)
-    params.add('TauONy', value=0.100830362, min=0.0001, max=2000.)
-    params.add('TauOFFy', value=0.0929173, vary=False)
+    reduced_chi = np.inf
 
-# %% fit model
-    result = minimize(residual, params, args=(t_measured, x2_measured), method='leastsq')  # leastsq nelder
-    new_chi = result.redchi
-    if new_chi < reduced_chi:
-        reduced_chi = new_chi
-        final_result = result
-        x10 = df_params["x10"][j]
-        x20 = df_params["x20"][j]
-        y0 = [x10, x20]
+    for j in range(n_search):
+        # set parameters incluing bounds
+        params = Parameters()
+        params.add('x10', value=df_params["x10"][j], min=0.0001, max=2000.)
+        params.add('x20', value=df_params["x20"][j], min=0.0001, max=2000.)
+        params.add('TauONx', value=0.100830362, vary=False)
+        params.add('x_SS', value=1000, vary=False)
+        params.add('TauONy', value=0.100830362, min=0.0001, max=2000.)
+        params.add('TauOFFy', value=0.0929173, vary=False)
 
-result = final_result
-#  check results of the fit
-data_fitted = g(t_measured, y0, result.params)
+    # %% fit model
+        result = minimize(residual, params, args=(t_measured, x2_measured), method='leastsq')  # leastsq nelder
+        new_chi = result.redchi
+        if new_chi < reduced_chi:
+            reduced_chi = new_chi
+            final_result = result
+            x10 = df_params["x10"][j]
+            x20 = df_params["x20"][j]
+            y0 = [x10, x20]
 
-# plot fitted data
-plt.plot(t_measured, data_fitted[:, 1], '-', linewidth=2, color='red', label='fitted data')
-plt.legend()
-plt.xlim([0, max(t_measured)])
-plt.ylim([0, 1.1 * max(data_fitted[:, 1])])
-# display fitted statistics
-report_fit(result)
-print('N# free variables = ' + str(result.nfree))
-plt.show()
+    result = final_result
+    #  check results of the fit
+    data_fitted = g(t_measured, y0, result.params)
+
+    # plot fitted data
+    plt.plot(t_measured, data_fitted[:, 1], '-', linewidth=2, color='red', label='fitted data')
+    plt.legend()
+    plt.xlim([0, max(t_measured)])
+    plt.ylim([0, 1.1 * max(data_fitted[:, 1])])
+    # display fitted statistics
+    report_fit(result)
+    print('N# free variables = ' + str(result.nfree))
+
+    fitted_results[names[k][0]] = [result.params['TauONx'].value, result.params['TauONy'].value, result.params['TauOFFy'].value, result.params['x_SS'].value]
+
+    plt.show()
+
+print(fitted_results)
+#fitted_results.to_excel('p.absolute() / ' + gate_name + 'freeFitParameterValues.xlsx')

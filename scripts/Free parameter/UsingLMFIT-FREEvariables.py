@@ -47,13 +47,17 @@ def residual(paras, t, data):
     return (x2_model - data).ravel()
 
 # %% Importing measured (or training) data
-# AraC gate characterization
-#df = pd.read_excel (r'C:\Users\elros\Dropbox\SYNTHETIC BIOLOGY\SD2 Project\Parameterizing Gates\Delay Circuit\TestingOFFON-FurtherCropped.xlsx')
-#gate_name = 'AraC'
 p = Path('.')
-df = pd.read_excel (p.absolute() / 'Timer (Modified)_20210808_125346 ON LuxR 2 plasmids - Cropped.xlsx')
-#df = pd.read_excel (r'C:\Users\elros\Dropbox\SYNTHETIC BIOLOGY\SD2 Project\Parameterizing Gates\Delay Circuit\Timer (Modified)_20210808_125346 ON LuxR 2 plasmids - Cropped.xlsx')
+
+## Here, choose uncomment option 1 for LuxR-characterized parameterization or 2 for AraC-characterized parameterization
+#### OPTION 1 LuxR gate characterization####
+df = pd.read_excel (p.absolute() / 'experimental_results' / 'Timer (Modified)_20210808_125346 ON LuxR 2 plasmids - Cropped.xlsx')
 gate_name = 'LuxR'
+
+#### OPTION 2 AraC gate characterization ####
+#df = pd.read_excel (p.absolute() / 'experimental_results' / 'shai timer_20210811_123450_ON AraC 2 plasmids - Cropped.xlsx')
+#gate_name = 'AraC'
+
 #### inducer concentration column
 inputs = df.Time
 inputs = inputs.tolist()
@@ -109,10 +113,8 @@ for k in range(len(outputs)):
         params.add('x20', value=df_params["x20"][j], min=0.0001, max=2000.)
         params.add('TauONx', value=0.100830362, min=0.0001, max=2000.)
         params.add('x_SS', value=1000, min=0.0001, max=2000.)
-
         params.add('TauONy', value=0.100830362, min=0.0001, max=2000.)
         params.add('TauOFFy', value=0.0929173, min=0.0001, max=2000.)
-        #params.add('TauOFFy', value=0.0929173, vary=False)
 
     # %% fit model
         result = minimize(residual, params, args=(t_measured, x2_measured), method='leastsq')  # leastsq nelder
@@ -142,5 +144,4 @@ for k in range(len(outputs)):
     plt.show()
 
 print(fitted_results)
-fitted_results.to_excel('p.absolute() / ' + gate_name + 'freeFitParameterValues.xlsx')
-
+#fitted_results.to_excel('p.absolute() / ' + gate_name + 'freeFitParameterValues.xlsx')
