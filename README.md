@@ -26,3 +26,10 @@ Folder containing the fluorescence results on which the parameterization algorit
 - `Timer (Modified)_20210808_125346 ON LuxR 2 plasmids - Cropped.xlsx`
 
   Contains the characterization fluorescence results for the LuxR gate when adding inducer, but the fluorescence graphs have been moved to origin for each different induction time. 
+
+
+## Free parameters
+Folder containing the scripts to determine the paper's model parameter values, without fixing any parameter values
+
+## Fixed parameters
+Folder containing the scripts to determine the paper's model parameter values, fixing all the parameter values except for $/Tau_{ON}^Y$
