@@ -1,35 +1,16 @@
 # Investigating-And-Modeling-the-Factors-that-Effects-the-Performance-of-Genetic-Circuits
-This repository contains the data-files and scripts necessary to reproduce the results of the "Investigating And Modeling the Factors that Effects the Performance of Genetic Circuits" journal article.
+This repository contains the sequence, data, modeling, and scripts necessary to reproduce the results of the "Investigating And Modeling the Factors that Effects the Performance of Genetic Circuits" journal article.
 
 
 
-## experimental_results
+## experimental_results folder
 
 Folder containing the fluorescence results on which the parameterization algorithms will draw upon.
 
-- `shai timer_20210811_123450_ON AraC 2 plasmids.xlsx`
+## plasmid_maps folder
 
-  Contains the characterization fluorescence results for the AraC gate when adding inducer.
+Folder containing the plasmid maps used in the paper. This are .dna files generated using XXX and YYY. 
 
-- `shai timer_20210812_090202 OFF AraC 2 plasmidsd.xlsx`
+## scripts folder
 
-  Contains the characterization fluorescence results for the AraC gate when removing inducer.
-
-- `Timer (Modified)_20210808_125346 ON LuxR 2 plasmids.xlsx`
-
-  Contains the characterization fluorescence results for the LuxR gate when adding inducer.
-
-- `Timer (Modified)_20210809_090959 OFF LuxR 2 plasmids.xlsx`
-
-  Contains the characterization fluorescence results for the LuxR gate when removing inducer.
-
-- `Timer (Modified)_20210808_125346 ON LuxR 2 plasmids - Cropped.xlsx`
-
-  Contains the characterization fluorescence results for the LuxR gate when adding inducer, but the fluorescence graphs have been moved to origin for each different induction time. 
-
-
-## Free parameters
-Folder containing the scripts to determine the paper's model parameter values, without fixing any parameter values
-
-## Fixed parameters
-Folder containing the scripts to determine the paper's model parameter values, fixing all the parameter values except for $/Tau_{ON}^Y$
+Folder containing all the scripts used to analyze the data and generate the graphs published in the paper. This folder uses the experimental data stored in the experimental_results folder. 
