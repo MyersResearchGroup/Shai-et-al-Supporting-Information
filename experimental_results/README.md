@@ -1,27 +1,18 @@
-# Experimental Results 
+# Experimental Results
 
-This folder contains files the plate-reader results of the different characterization experiments as described in the paper. Those with the 'ON' tag, are the OFF to ON characterization experiments and those with the 'OFF' tag, are the ON to OFF characterization experiments. 
+This directory stores the plate-reader results from various characterization experiments detailed in the paper. Files labeled with 'ON' pertain to the OFF-to-ON characterization experiments, while those tagged 'OFF' relate to the ON-to-OFF experiments. Files marked with 'cropped' are versions of the original data wherein initial values have been cropped. This cropping is done to either:
 
-Documents with the 'cropped' tag are the same as the original files, but with some values cropped (initial values), to either: a) have all experiments start when the induction starts or b) eliminate data from when the experiment was being set-up. 
+a) Align the start of all experiments with the induction commencement.
+b) Exclude data from the experimental setup phase.
 
+**Files & Descriptions:**
 
+- **`shai timer_20210811_123450_ON AraC 2 plasmids.xlsx`**: Characterization fluorescence data for the AraC gate upon inducer addition.
 
-- `shai timer_20210811_123450_ON AraC 2 plasmids.xlsx`
+- **`shai timer_20210812_090202 OFF AraC 2 plasmidsd.xlsx`**: Fluorescence data for the AraC gate post inducer removal.
 
-  Contains the characterization fluorescence results for the AraC gate when adding inducer.
+- **`Timer (Modified)_20210808_125346 ON LuxR 2 plasmids.xlsx`**: Characterization fluorescence data for the LuxR gate upon inducer addition.
 
-- `shai timer_20210812_090202 OFF AraC 2 plasmidsd.xlsx`
+- **`Timer (Modified)_20210809_090959 OFF LuxR 2 plasmids.xlsx`**: Fluorescence data for the LuxR gate post inducer removal.
 
-  Contains the characterization fluorescence results for the AraC gate when removing inducer.
-
-- `Timer (Modified)_20210808_125346 ON LuxR 2 plasmids.xlsx`
-
-  Contains the characterization fluorescence results for the LuxR gate when adding inducer.
-
-- `Timer (Modified)_20210809_090959 OFF LuxR 2 plasmids.xlsx`
-
-  Contains the characterization fluorescence results for the LuxR gate when removing inducer.
-
-- `Timer (Modified)_20210808_125346 ON LuxR 2 plasmids - Cropped.xlsx`
-
-  Contains the characterization fluorescence results for the LuxR gate when adding inducer, but the fluorescence graphs have been moved to origin for each different induction time. 
+- **`Timer (Modified)_20210808_125346 ON LuxR 2 plasmids - Cropped.xlsx`**: Fluorescence data for the LuxR gate after inducer addition, adjusted so fluorescence graphs originate from each distinct induction time.

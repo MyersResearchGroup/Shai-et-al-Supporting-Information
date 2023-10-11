@@ -1,14 +1,16 @@
-### Iterative fixing parameter valuesAnalysis
+### Analysis with Iteratively Fixed Parameter Values
 
-`UsingLMFIT-FIXED.py`
+**Scripts & Data Files:**
 
-This is the script used for analyzing fits using LMFIT package and the ODE solver. 
+- **`UsingLMFIT-FIXED.py`**: Analyzes fits using the LMFIT package alongside the ODE solver used for fixed parameters.
 
-`ONOFFessays.py`
+- **`ONOFFessays.py`**: Determines the average \( \tau_{OFF} \) parameter value.
 
-This script is used to find the average $\tau_{OFF}$ parameter value.
+- **`plotTauONys.py`**: Generates the bar graph presented in the paper, illustrating the decrease of \( \tau_{ON}^y \) across varying induction times.
 
-`plotTauONys.py`
-
-Used to make the bar graph used in the paper, to show the decrease of $\tau_{ON}^y$ for each induction time.
-
+- **Minimization Results**: The following spreadsheets capture the results of the minimization process, with each subsequent file reflecting additional fixed parameters:
+  - `TauON Results.xlsx`
+  - `TauONOFFresutls-WithGlobalSearch-WithXssFixed.xlsx`
+  - `TauONOFFresutls-WithGlobalSearch-WithXssAndTauOFFFixed.xlsx`
+  - `TauONOFFresutls-WithGlobalSearch-WithXssAndTauOFFyandONx-Fixed.xlsx`
+  - `TauONOFFresutls-WithGlobalSearch-WithXssAndTauOFFyandONy-Fixed.xlsx`
