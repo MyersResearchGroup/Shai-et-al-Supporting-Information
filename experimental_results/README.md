@@ -1,7 +1,5 @@
 # Experimental Results 
 
-
-
 This folder contains files the plate-reader results of the different characterization experiments as described in the paper. Those with the 'ON' tag, are the OFF to ON characterization experiments and those with the 'OFF' tag, are the ON to OFF characterization experiments. 
 
 Documents with the 'cropped' tag are the same as the original files, but with some values cropped (initial values), to either: a) have all experiments start when the induction starts or b) eliminate data from when the experiment was being set-up. 

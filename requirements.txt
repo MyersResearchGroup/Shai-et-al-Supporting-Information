@@ -1,0 +1,6 @@
+lmfit==1.2.2
+matplotlib==3.7.2
+numpy==1.25.2
+pandas==2.0.3
+SALib==1.4.7
+scipy==1.11.3

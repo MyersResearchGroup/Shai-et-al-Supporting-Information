@@ -1,16 +1,22 @@
-# Investigating-And-Modeling-the-Factors-that-Effects-the-Performance-of-Genetic-Circuits
-This repository contains the sequence, data, modeling, and scripts necessary to reproduce the results of the "Investigating And Modeling the Factors that Effects the Performance of Genetic Circuits" journal article.
+# Investigating and Modeling the Factors that Affect the Performance of Genetic Circuits
+This repository houses all sequences, data, models, and scripts required to reproduce the findings presented in the journal article titled "Investigating and Modeling the Factors that Affect the Performance of Genetic Circuits" (link coming soon).
+
+## `experimental_results` Folder
+
+This directory encompasses the fluorescence data utilized by the parameterization algorithms.
+
+## `plasmid_maps` Folder
+
+This directory stores the plasmid maps referenced in the paper. These maps are in `.dna` format, generated using tools XXX and YYY.
+
+## `scripts` Folder
+
+A directory containing all the scripts employed to analyze the dataset and produce the graphs showcased in the paper. These scripts utilize the experimental data located in the `experimental_results` folder.
 
 
+## `requirements.txt` 
+This file contains the list of Python packages required to run the scripts in this repository. To install these packages, run the following command in the terminal:
 
-## experimental_results folder
-
-Folder containing the fluorescence results on which the parameterization algorithms will draw upon.
-
-## plasmid_maps folder
-
-Folder containing the plasmid maps used in the paper. This are .dna files generated using XXX and YYY. 
-
-## scripts folder
-
-Folder containing all the scripts used to analyze the data and generate the graphs published in the paper. This folder uses the experimental data stored in the experimental_results folder. 
+```bash
+pip install -r requirements.txt
+```
